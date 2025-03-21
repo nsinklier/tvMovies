@@ -22,10 +22,11 @@ struct ShelfView: View {
     
     var scrollingMovies: some View {
         ScrollView(.horizontal) {
-            HStack(spacing: 40) {
+            HStack(spacing: 30) {
+                Spacer(minLength: 0.01)
                 ForEach(movies) { movie in
                     PosterView(movie: movie)
-                        .containerRelativeFrame(.horizontal, count: 6, spacing: 40)
+                        .containerRelativeFrame(.horizontal, count: 6, spacing: 30)
                 }
             }
         }

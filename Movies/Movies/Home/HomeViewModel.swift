@@ -49,9 +49,9 @@ class HomeViewModel: ObservableObject {
             }
             
             guard
-                let popularMovies = results["popular"],
-                let highestRatedMovies = results["rated"],
-                let comingSoonMovies = results["upcoming"],
+                let popularMovies = results["popular"]?.filter({ $0.imageURL != nil }),
+                let highestRatedMovies = results["rated"]?.filter({ $0.imageURL != nil }),
+                let comingSoonMovies = results["upcoming"]?.filter({ $0.imageURL != nil }),
                 let featuredMovie = popularMovies.first
             else {
                 return nil

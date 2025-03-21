@@ -20,7 +20,7 @@ struct PosterView: View {
                 if let image = phase.image {
                     image
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
+                        .aspectRatio(0.67, contentMode: .fill)
                     Text(movie.title)
                         .lineLimit(2, reservesSpace: true)
                 }
