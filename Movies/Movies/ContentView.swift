@@ -23,7 +23,7 @@ struct ContentView: View {
                 HomeFactory.makeView()
             }
             Tab("Search", systemImage: "magnifyingglass", value: .search) {
-                Text("Search will go here!")
+                SearchView()
             }
             Tab("Settings", systemImage: "gearshape", value: .settings) {
                 Text("Settings go here!")
