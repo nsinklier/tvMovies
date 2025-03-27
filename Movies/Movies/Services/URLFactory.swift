@@ -11,7 +11,7 @@ protocol URLFactoryProtocol {
     func makePopularMoviesURL() -> URL?
     func makeTopRatedMoviesURL() -> URL?
     func makeComingSoonMoviesURL() -> URL?
-    func makeMovieSearchURL(query: String) -> URL?
+    func makeMovieSearchURL(query: String, page: Int) -> URL?
 }
 
 struct URLFactory: URLFactoryProtocol {
@@ -27,7 +27,7 @@ struct URLFactory: URLFactoryProtocol {
         URL(string: API.baseURL + API.comingSoon + "?" + API.apiKey + "&" + API.locale)
     }
     
-    func makeMovieSearchURL(query: String) -> URL? {
-        URL(string: API.baseURL + API.searchURL + API.apiKey + "&" + API.searchQuery + query)
+    func makeMovieSearchURL(query: String, page: Int) -> URL? {
+        URL(string: API.baseURL + API.searchURL + "?" + API.apiKey + "&page=\(page)&" + "include_adult=false&" + "language=en-US&" + "sort_by=popularity.desc" + "&" + API.searchQuery + query)
     }
 }

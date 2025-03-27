@@ -39,7 +39,6 @@ struct FeaturedMovieView: View {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-//                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .ignoresSafeArea()
             }
         }

@@ -16,15 +16,11 @@ struct PosterView: View {
         Button {
             isShowingDetails.toggle()
         } label: {
-            AsyncImage(url: movie.imageURL) { phase in
-                if let image = phase.image {
-                    image
-                        .resizable()
-                        .aspectRatio(0.67, contentMode: .fill)
-                    Text(movie.title)
-                        .lineLimit(2, reservesSpace: true)
-                }
-            }
+            AsyncImage(url: movie.imageURL) { image in
+                image
+                    .resizable()
+                    .aspectRatio(0.67, contentMode: .fill)
+            } placeholder: {}
         }
         .buttonStyle(.borderless)
         .sheet(isPresented: $isShowingDetails) {

@@ -23,7 +23,7 @@ struct ServiceWorker: ServiceWorkerProtocol {
         
         let model = try JSONDecoder().decode(MovieResponseModel.self, from: data)
         
-        return model.results
+        return model.results.filter { $0.imageURL != nil }
     }
 }
 

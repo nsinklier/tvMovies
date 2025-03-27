@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B1500B482D96045D004287B8 /* SwiftUIMasonry in Frameworks */ = {isa = PBXBuildFile; productRef = B1500B472D96045D004287B8 /* SwiftUIMasonry */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		B1915B992D7914EA000BBCF6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1500B482D96045D004287B8 /* SwiftUIMasonry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = Movies;
 			packageProductDependencies = (
+				B1500B472D96045D004287B8 /* SwiftUIMasonry */,
 			);
 			productName = Movies;
 			productReference = B1915B882D7914E9000BBCF6 /* Movies.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = B1915B7F2D7914E9000BBCF6;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				B1500B462D96045D004287B8 /* XCLocalSwiftPackageReference "../../../Desktop/SwiftUIMasonry-main" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B1915B892D7914E9000BBCF6 /* Products */;
 			projectDirPath = "";
@@ -552,6 +561,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		B1500B462D96045D004287B8 /* XCLocalSwiftPackageReference "../../../Desktop/SwiftUIMasonry-main" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../../Desktop/SwiftUIMasonry-main";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B1500B472D96045D004287B8 /* SwiftUIMasonry */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftUIMasonry;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B1915B802D7914E9000BBCF6 /* Project object */;
 }
