@@ -40,9 +40,9 @@ class SearchViewModel: ObservableObject {
     func loadNextPage() async {
         guard !movies.isEmpty else { return }
         Task { @MainActor in
+            self.pageNumber += 1
             guard let nextPage = try? await serviceWorker.fetchMovies(for: urlFactory.makeMovieSearchURL(query: searchText, page: pageNumber)) else { return }
             self.movies.append(contentsOf: nextPage)
-            self.pageNumber += 1
         }
     }
 }

@@ -9,6 +9,7 @@ import Foundation
 
 protocol URLFactoryProtocol {
     func makePopularMoviesURL() -> URL?
+    func makeFamilyMoviesURL() -> URL?
     func makeTopRatedMoviesURL() -> URL?
     func makeComingSoonMoviesURL() -> URL?
     func makeMovieSearchURL(query: String, page: Int) -> URL?
@@ -16,11 +17,15 @@ protocol URLFactoryProtocol {
 
 struct URLFactory: URLFactoryProtocol {
     func makePopularMoviesURL() -> URL? {
-        URL(string: API.baseURL + API.discoverURL + "?" + API.apiKey + "&" + API.sortByPopularity)
+        URL(string: API.baseURL + API.discoverPath + "?" + API.apiKey + "&" + API.sortByPopularity + "&" + API.locale)
+    }
+    
+    func makeFamilyMoviesURL() -> URL? {
+        URL(string: API.baseURL + API.discoverPath + "?" + API.excludeAdult + "&" + API.locale + "&" + API.apiKey + "&" + API.sortByPopularity + "&" + API.locale + "&" + API.family)
     }
     
     func makeTopRatedMoviesURL() -> URL? {
-        URL(string: API.baseURL + API.discoverURL + "?" + API.apiKey + "&" + API.sortByRating + "&" + API.locale)
+        URL(string: API.baseURL + API.discoverPath + "?" + API.apiKey + "&" + API.sortByRating + "&" + API.locale)
     }
     
     func makeComingSoonMoviesURL() -> URL? {
@@ -28,6 +33,6 @@ struct URLFactory: URLFactoryProtocol {
     }
     
     func makeMovieSearchURL(query: String, page: Int) -> URL? {
-        URL(string: API.baseURL + API.searchURL + "?" + API.apiKey + "&page=\(page)&" + "include_adult=false&" + "language=en-US&" + "sort_by=popularity.desc" + "&" + API.searchQuery + query)
+        URL(string: API.baseURL + API.searchPath + "?" + API.apiKey + "&" + API.searchQuery + query + "&page=\(page)")
     }
 }

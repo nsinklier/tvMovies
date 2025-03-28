@@ -31,6 +31,7 @@ struct HomeView: View {
                 blend
                 shelves(model)
                     .padding(.top, -150)
+                    .padding(.bottom, 300)
             }
         }
         .background {
@@ -57,6 +58,7 @@ struct HomeView: View {
     func shelves(_ model: HomeModel) -> some View {
         VStack(alignment: .leading, spacing: 30) {
             ShelfView(title: "Most Popular", movies: model.mostPopularMovies)
+            ShelfView(title: "Fun for the Family", movies: model.familyMovies)
             ShelfView(title: "Coming Soon", movies: model.comingSoonMovies)
             ShelfView(title: "Top Rated", movies: model.highestRatedMovies)
         }

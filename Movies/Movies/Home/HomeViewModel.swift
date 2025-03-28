@@ -41,6 +41,7 @@ class HomeViewModel: ObservableObject {
             taskGroup.addTask { ("popular", try? await self.serviceWorker.fetchMovies(for: self.urlFactory.makePopularMoviesURL())) }
             taskGroup.addTask { ("rated", try? await self.serviceWorker.fetchMovies(for: self.urlFactory.makeTopRatedMoviesURL())) }
             taskGroup.addTask { ("upcoming", try? await self.serviceWorker.fetchMovies(for: self.urlFactory.makeComingSoonMoviesURL())) }
+            taskGroup.addTask { ("family", try? await self.serviceWorker.fetchMovies(for: self.urlFactory.makeFamilyMoviesURL())) }
             
             var results = [String: [Movie]]()
             
@@ -50,6 +51,7 @@ class HomeViewModel: ObservableObject {
             
             guard
                 let popularMovies = results["popular"]?.filter({ $0.imageURL != nil }),
+                let familyMovies = results["family"]?.filter({ $0.imageURL != nil }),
                 let highestRatedMovies = results["rated"]?.filter({ $0.imageURL != nil }),
                 let comingSoonMovies = results["upcoming"]?.filter({ $0.imageURL != nil }),
                 let featuredMovie = popularMovies.first
@@ -57,7 +59,13 @@ class HomeViewModel: ObservableObject {
                 return nil
             }
             
-            return HomeModel(mostPopularMovies: popularMovies, highestRatedMovies: highestRatedMovies, comingSoonMovies: comingSoonMovies, featuredMovie: featuredMovie)
+            return HomeModel(
+                mostPopularMovies: popularMovies,
+                familyMovies: familyMovies,
+                highestRatedMovies: highestRatedMovies,
+                comingSoonMovies: comingSoonMovies,
+                featuredMovie: featuredMovie
+            )
         })
         else {
             throw URLError(.badServerResponse)
@@ -71,6 +79,7 @@ class HomeViewModel: ObservableObject {
 struct HomeModel: Identifiable {
     let id: String = UUID().uuidString
     let mostPopularMovies: [Movie]
+    let familyMovies: [Movie]
     let highestRatedMovies: [Movie]
     let comingSoonMovies: [Movie]
     let featuredMovie: Movie
