@@ -11,7 +11,7 @@ import Foundation
 
 struct HomeViewModelTests {
     @MainActor
-    @Test func testPopulate_success() async throws {
+    @Test func test_populate_success() async throws {
         let serviceWorkerSpy = ServiceWorkerSpy()
         let sut = HomeViewModel(serviceWorker: serviceWorkerSpy, urlFactory: URLFactoryMock())
         
@@ -24,7 +24,7 @@ struct HomeViewModelTests {
     }
     
     @MainActor
-    @Test func testPopulate_failure() async throws {
+    @Test func test_populate_failure() async throws {
         let serviceWorkerSpy = ServiceWorkerSpy()
         let sut = HomeViewModel(serviceWorker: serviceWorkerSpy, urlFactory: URLFactoryMock(success: false))
         
@@ -72,8 +72,8 @@ actor ServiceWorkerSpy: ServiceWorkerProtocol {
     }
 }
 
-struct URLFactoryMock: URLFactoryProtocol {
-    private let success: Bool
+class URLFactoryMock: URLFactoryProtocol {
+    var success: Bool
     
     init(success: Bool = true) {
         self.success = success

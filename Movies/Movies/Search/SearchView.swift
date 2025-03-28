@@ -32,7 +32,7 @@ struct SearchView: View {
 }
 
 extension SearchView {
-    func loadNextPage() {
+    private func loadNextPage() {
         Task {
             await viewModel.loadNextPage()
         }

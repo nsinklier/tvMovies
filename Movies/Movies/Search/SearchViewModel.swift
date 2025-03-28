@@ -18,6 +18,7 @@ class SearchViewModel: ObservableObject {
         }
     }
     
+    var state: SearchState = .idle
     private var pageNumber: Int = 1
     private let serviceWorker: ServiceWorkerProtocol
     private let urlFactory: URLFactoryProtocol
@@ -27,22 +28,47 @@ class SearchViewModel: ObservableObject {
         self.urlFactory = urlFactory
     }
     
+    @MainActor
     func loadMovies() async {
-        Task { @MainActor in
-            do {
-                self.movies = try await serviceWorker.fetchMovies(for: urlFactory.makeMovieSearchURL(query: searchText, page: pageNumber))
-            } catch {
-                print("Error fetching movies: \(error)")
-            }
+        guard state != .loading, !searchText.isEmpty  else { return }
+        state = .loading
+        do {
+            let url = urlFactory.makeMovieSearchURL(query: searchText, page: pageNumber)
+            self.movies = try await serviceWorker.fetchMovies(for: url)
+            state = .loaded
+        } catch {
+            state = .error(error)
         }
     }
     
+    @MainActor
     func loadNextPage() async {
-        guard !movies.isEmpty else { return }
-        Task { @MainActor in
-            self.pageNumber += 1
-            guard let nextPage = try? await serviceWorker.fetchMovies(for: urlFactory.makeMovieSearchURL(query: searchText, page: pageNumber)) else { return }
+        guard state != .loading, !movies.isEmpty else { return }
+        state = .loading
+        self.pageNumber += 1
+        do {
+            let url = urlFactory.makeMovieSearchURL(query: searchText, page: pageNumber)
+            let nextPage = try await serviceWorker.fetchMovies(for: url)
             self.movies.append(contentsOf: nextPage)
+            state = .loaded
+        } catch {
+            state = .error(error)
+        }
+    }
+}
+
+enum SearchState: Equatable {
+    case idle
+    case loading
+    case loaded
+    case error(Error)
+    
+    static func == (lhs: SearchState, rhs: SearchState) -> Bool {
+        switch (lhs, rhs) {
+        case (.idle, .idle), (.loading, .loading), (.loaded, .loaded), (.error(_), .error(_)):
+            return true
+        default:
+            return false
         }
     }
 }
