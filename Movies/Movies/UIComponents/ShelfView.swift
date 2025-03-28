@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+/// ShelfView shows a horizontally scrolling set of PosterViews. When an item is tapped, it navigates to a details View of the given movie.
+/// - Parameters:
+///     - title: The title to be displayed above the list of movies
+///     - movies: The list of movies to be displayed
 struct ShelfView: View {
     let title: String
     let movies: [Movie]

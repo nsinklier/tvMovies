@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// FeaturedMovieView is a large standout view used to bring attention to a specific movie. It displays the details of the movie and has a button to take the user to a details page of the movie, allowing for an in-depth look.
+/// - Parameter movie: This is used to populate this view and the details view it navigates to.
 struct FeaturedMovieView: View {
     let movie: Movie
     @State var isDisplayingDetails = false

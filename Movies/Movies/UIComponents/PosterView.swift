@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// This View shows the movie poster image and navigates to a details View when tapped.
+/// - Parameter movie: This movie is used to populate this View as well as the details View it navigates to.
 struct PosterView: View {
     let movie: Movie
     
@@ -31,4 +33,5 @@ struct PosterView: View {
 
 #Preview {
     PosterView(movie: .mock)
+        .frame(width: 400)
 }

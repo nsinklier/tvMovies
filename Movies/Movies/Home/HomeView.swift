@@ -40,7 +40,6 @@ struct HomeView: View {
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .ignoresSafeArea()
                         .blur(radius: 80, opaque: false)
                 }
             }
@@ -48,6 +47,7 @@ struct HomeView: View {
         .ignoresSafeArea()
     }
     
+    // This makes a smooth transition in the UI for the FeaturedMovie image to the blured background image
     var blend: some View {
         Color.black
             .frame(height: 120)
