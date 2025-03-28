@@ -40,5 +40,5 @@ extension SearchView {
 }
 
 #Preview {
-    SearchFactory.makeView()
+    SearchFactory.makeMockView()
 }

@@ -44,7 +44,13 @@ extension HomeFactory {
             }
         }
         
-        return Mock()
+        return MockServiceWorker()
+    }
+}
+
+struct MockServiceWorker: ServiceWorkerProtocol {
+    func fetchMovies(for url: URL?) async throws -> [Movie] {
+        Movie.mockArray
     }
 }
 #endif

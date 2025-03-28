@@ -36,4 +36,6 @@ struct ShelfView: View {
 
 #Preview {
     ShelfView(title: "Great Movies", movies: Movie.mockArray)
+        .frame(height: 300)
+        .ignoresSafeArea()
 }

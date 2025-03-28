@@ -22,3 +22,17 @@ class SearchFactory {
         URLFactory()
     }
 }
+
+#if DEBUG
+extension SearchFactory {
+    static func makeMockView() -> SearchView {
+        SearchView(viewModel: makeMockViewModel())
+    }
+    
+    static func makeMockViewModel() -> SearchViewModel {
+        let viewModel = SearchViewModel(serviceWorker: MockServiceWorker(), urlFactory: makeURLFactory())
+        viewModel.movies = Movie.mockArray
+        return viewModel
+    }
+}
+#endif
