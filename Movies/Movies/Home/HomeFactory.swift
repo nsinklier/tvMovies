@@ -33,7 +33,7 @@ extension HomeFactory {
     
     static func makeMockViewModel() -> HomeViewModel {
         let mock = HomeViewModel(serviceWorker: makeMockServiceWorker(), urlFactory: makeURLFactory())
-        mock.populate()
+        Task { await mock.populate() }
         return mock
     }
     

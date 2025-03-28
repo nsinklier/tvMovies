@@ -15,7 +15,7 @@ struct HomeView: View {
         case .loading:
             Text("Loading...")
                 .task {
-                    viewModel.populate()
+                    await viewModel.populate()
                 }
         case .loaded(let model):
             content(model)

@@ -25,14 +25,13 @@ class HomeViewModel: ObservableObject {
         self.urlFactory = urlFactory
     }
     
-    func populate() {
-        Task { @MainActor in
-            do {
-                let model = try await makeModel()
-                state = .loaded(model)
-            } catch {
-                state = .error(error)
-            }
+    @MainActor
+    func populate() async {
+        do {
+            let model = try await makeModel()
+            state = .loaded(model)
+        } catch {
+            state = .error(error)
         }
     }
     
