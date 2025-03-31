@@ -7,18 +7,26 @@
 
 import SwiftUI
 
+enum Field: Hashable {
+    case featured
+}
+
 struct HomeView: View {
     @ObservedObject var viewModel: HomeViewModel
+    @FocusState private var focus: Field?
     
     var body: some View {
         switch viewModel.state {
         case .loading:
-            Text("Loading...")
+            ProgressView("Loading...")
                 .task {
                     await viewModel.populate()
                 }
         case .loaded(let model):
             content(model)
+                .task {
+                    focus = .featured
+                }
         case .error(let error):
             Text("Error: \(error)")
         }
@@ -28,6 +36,7 @@ struct HomeView: View {
         ScrollView(.vertical) {
             VStack(alignment: .leading) {
                 FeaturedMovieView(movie: model.featuredMovie)
+                    .focused($focus, equals: .featured)
                 blend
                 shelves(model)
                     .padding(.top, -150)
