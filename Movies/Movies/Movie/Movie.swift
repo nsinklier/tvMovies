@@ -7,24 +7,24 @@
 
 import Foundation
 
-struct Movie: Identifiable, Decodable {
-    let id: Int
-    let title: String
-    let overview: String
+public struct Movie: Identifiable, Codable {
+    public let id: Int
+    public let title: String
+    public let overview: String
     private let posterPath: String?
     private let backdropPath: String?
     
-    var imageURL: URL? {
+    public var imageURL: URL? {
         guard let path = posterPath else { return backdropImageURL }
         return URL(string: API.imageURL + path)
     }
     
-    var backdropImageURL: URL? {
+    public var backdropImageURL: URL? {
         guard let path = backdropPath else { return nil }
         return URL(string: API.imageURL + path)
     }
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         case id
         case title
         case overview
@@ -35,7 +35,7 @@ struct Movie: Identifiable, Decodable {
 
 #if DEBUG
 extension Movie {
-    static var mock: Movie {
+    public static var mock: Movie {
         .init(
             id: UUID().hashValue,
             title: "Fantastic Mr. Fox",
@@ -44,7 +44,7 @@ extension Movie {
             backdropPath: "/qU4HDNKv7gjdlvMu74r70rISPwn.jpg")
     }
     
-    static var mockArray: [Movie] {
+    public static var mockArray: [Movie] {
         [.mock,
          Movie(
             id: UUID().hashValue,

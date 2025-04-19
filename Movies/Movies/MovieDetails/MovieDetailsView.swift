@@ -16,16 +16,22 @@ struct MovieDetailsView: View {
             VStack {
                 Spacer()
                 VStack(alignment: .leading, spacing: 20) {
-                    Text(movie.title)
-                        .font(.headline)
-                        .fontWeight(.bold)
+                    HStack {
+                        Text(movie.title)
+                            .font(.headline)
+                            .fontWeight(.bold)
+                        Spacer()
+                        WatchlistButton(movie: movie)
+                            .environmentObject(WatchlistRepository.shared)
+                    }
+                    
                     Text(movie.overview)
                         .multilineTextAlignment(.leading)
+                    
                 }
                 .padding(30)
                 .background { Color.black.opacity(0.5) }
                 .cornerRadius(20)
-                
             }
             .padding([.horizontal], 200)
             .padding(.bottom, 50)

@@ -9,6 +9,7 @@ import SwiftUI
 
 enum MovieTab: String, Hashable, Identifiable {
     case home = "Home"
+    case watchlist = "Watchlist"
     case search = "Search"
     case settings = "Settings"
     
@@ -22,6 +23,9 @@ struct ContentView: View {
             Tab("Home", systemImage: "house", value: .home) {
                 HomeFactory.makeView()
             }
+            Tab("Watchlist", systemImage: "plus.circle", value: .watchlist) {
+                WatchlistView()
+            }
             Tab("Search", systemImage: "magnifyingglass", value: .search) {
                 SearchFactory.makeView()
             }
@@ -30,6 +34,7 @@ struct ContentView: View {
             }
         }
         .tabViewStyle(.sidebarAdaptable)
+        .environmentObject(WatchlistRepository.shared)
     }
 }
 
