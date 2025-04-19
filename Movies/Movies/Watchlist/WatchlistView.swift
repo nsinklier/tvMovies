@@ -18,7 +18,7 @@ struct WatchlistView: View {
                 HStack {
                     Spacer(minLength: 30)
                     Masonry(.vertical, lines: 5, spacing: 30) {
-                        ForEach(Array(repository.movies).sorted { $0.timestamp > $1.timestamp }) { watchlistItem in
+                        ForEach(repository.moviesSortedMostRecentlyAdded) { watchlistItem in
                             PosterView(movie: watchlistItem.movie)
                         }
                     }
@@ -44,4 +44,10 @@ struct WatchlistView: View {
 
 #Preview {
     WatchlistView()
+}
+
+private extension WatchlistRepository {
+    var moviesSortedMostRecentlyAdded: [WatchlistMovie] {
+        Array(self.movies).sorted { $0.timestamp > $1.timestamp }
+    }
 }
