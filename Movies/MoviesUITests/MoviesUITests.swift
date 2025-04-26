@@ -23,21 +23,43 @@ final class MoviesUITests: XCTestCase {
     }
 
     @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    func test_MovieDetails_movieCanBeAddedToAndRemovedFromWatchlist() throws {
         let app = XCUIApplication()
         app.launch()
 
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+        let homeButton = app.buttons["Home"]
+        XCTAssertFalse(homeButton.isSelected)
+        let detailsButton = app.buttons["Details"]
+        
+        let detialsPredicate = NSPredicate(format: "hasFocus == true")
+        let detialsExpectation = expectation(for: detialsPredicate, evaluatedWith: detailsButton)
+        
+        wait(for: [detialsExpectation], timeout: 2)
+        
+        // Navigate to MovieDetails
+        XCUIRemote.shared.press(.select)
+        
+        let addToWatchlistButton = app.buttons["plus.circle"]
+        
+        let focusPredicate = NSPredicate(format: "hasFocus == true")
+        let focusExpectation = expectation(for: focusPredicate, evaluatedWith: addToWatchlistButton)
+        
+        wait(for: [focusExpectation], timeout: 2)
+        
+        // Select add to watchlist button
+        XCUIRemote.shared.press(.select)
+        
+        let watchPredicate = NSPredicate(format: "exists == true")
+        let watchExpectation = expectation(for: watchPredicate, evaluatedWith: app.buttons["plus.circle.fill"])
+        
+        wait(for: [watchExpectation], timeout: 2)
+        
+        // Select remove from watchlist button
+        XCUIRemote.shared.press(.select)
+        
+        let unwatchedPredicate = NSPredicate(format: "exists == true")
+        let unwatchedExpectation = expectation(for: unwatchedPredicate, evaluatedWith: app.buttons["plus.circle"])
 
-    @MainActor
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
+        wait(for: [unwatchedExpectation], timeout: 2)
     }
 }
